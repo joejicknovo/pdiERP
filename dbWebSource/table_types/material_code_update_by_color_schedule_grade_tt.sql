@@ -1,0 +1,3 @@
+CREATE TYPE material_code_update_by_color_schedule_grade_tt AS TABLE(
+material_color_schedule_grade_id	INT	NULL
+,material_color_schedule_grade_code	CHAR(1)	NULL)

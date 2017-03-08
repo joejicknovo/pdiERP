@@ -1,0 +1,5 @@
+CREATE TYPE contract_particular_other_relevant_information_tt AS TABLE(
+contract_particular_other_relevant_information_id	INT	NULL
+,contract_particular_id	INT	NULL
+,other_relevant_information_id	INT	NULL
+,description	NVARCHAR(600)	NULL)

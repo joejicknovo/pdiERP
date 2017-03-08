@@ -1,0 +1,5 @@
+CREATE TYPE client_satisfaction_feedback_product_performance_tt AS TABLE(
+client_satisfaction_feedback_id	INT	NULL
+,client_satisfaction_feedback_product_performance_id	INT	NULL
+,product_service_performance_id	INT	NULL
+,status_id	INT	NULL)

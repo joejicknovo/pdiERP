@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+<style>
+    body{
+		background-color: #4d87c9;
+	}
+	#form-signin{
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: 25%;
+		background: #fff;
+		padding: 0;
+	}
+	#form-signin-heading{
+		background: #333;
+		margin: 0;
+		color: #fff;
+		padding: 15px 30px;
+		border-bottom: 3pt solid #4d87c9;
+	}
+	#frmLogin{
+		padding: 20px 30px 35px;
+	}
+	#frmLogin input{
+		line-height: 2.428571;
+	}
+	#btnLogin{
+		margin-top: 10px;
+	}
+</style>
+
+<div id="form-signin" class="col-sm-3 col-xs-12">
+	<h4 id="form-signin-heading">Please sign in</h4>
+	<div id="loginform">
+            <form id="frmLogin" action="@Url.Content("~/")account/validate" method="post"  >
+				<div class="form-group">
+					<label for="username">User Name</label>
+					<div class="input-group">
+                      <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
+                      <input type="text" class="form-control" id="username" name="username">
+                    </div>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<div class="input-group">
+                      <div class="input-group-addon"><span class="glyphicon glyphicon-lock aria-hidden="true"></span></div>
+                      <input type="password" class="form-control" id="password" name="password">
+                    </div>
+				</div>
+				<button id="btnLogin" class="btn btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-triangle-right"></span> Login</button>
+			</form>
+	</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+	    var msg = zsi.getUrlParamValue("access");
+	    var _username = readCookie("username");
+	   
+		if(_username){
+			if (msg !== "") {
+				$("#username").val(_username);
+				$("#password").val( readCookie("userpwd"));
+				$("#isremember").prop('checked',true);
+				$("#frmLogin").submit();
+			}
+			else
+				clearCookies();
+		}
+		else {
+		    if (msg) alert( unescape(msg) + " Please try again.")
+        }
+		
+        $('.carousel').carousel({
+            interval: 6000
+        })		
+    });
+
+$("#frmLogin").submit(function () {
+
+    if ($("#username").val() === "") { alert("Please enter username."); return false; }
+    if ($("#password").val() === "") { alert("Please enter password."); return false; }
+	checkRememberSignin();
+});
+
+$("#btnTest").click(function () {
+	checkRememberSignin();
+});
+
+function clearCookies(){
+	createCookie("username","",0);
+	createCookie("userpwd","",0);
+	$("#isremember").prop('checked',false);
+}
+
+function checkRememberSignin(){
+	if ( $("#isremember").is(':checked') ){
+			createCookie("username",$("#username").val(),1);
+			createCookie("userpwd",$("#password").val(),1);
+	}
+	else clearCookies();
+}
+
+var button = $("#example-one");
+button.on("click", function () {
+
+    var x = $(this);
+    if (x.text() == x.data("text-swap")) {
+        x.text(x.data("text-original"));
+    } else {
+        x.data("text-original", x.text());
+        x.text(x.data("text-swap"));
+    }
+
+});
+
+var button = $("#example-two");
+button.on("click", function () {
+
+    var x = $(this);
+    if (x.text() == x.data("text-swap")) {
+        x.text(x.data("text-original"));
+    } else {
+        x.data("text-original", x.text());
+        x.text(x.data("text-swap"));
+    }
+
+});
+function createCookie(name,value,days) {
+    var expires;
+    if (days) {
+    	var date = new Date();
+    	date.setTime(date.getTime()+(days*24*60*60*1000));
+    	expires = "; expires="+date.toGMTString();
+    }
+    else expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+    	var c = ca[i];
+    	while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    	if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+</script>

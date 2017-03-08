@@ -1,0 +1,3 @@
+CREATE TYPE material_code_update_by_general_category_tt AS TABLE(
+material_general_category_id	INT	NULL
+,material_general_category_code	CHAR(1)	NULL)
